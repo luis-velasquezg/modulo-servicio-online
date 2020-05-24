@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="TiquetevueloListForm">
+
+        <p:panel header="#{myBundle.ListTiquetevueloTitle}">
+            <p:contextMenu id="TiquetevueloDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('TiquetevueloListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('TiquetevueloListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('TiquetevueloListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('TiquetevueloListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.TiquetevueloMenuItem_clase}" icon="ui-icon-search"  actionListener="#{tiquetevueloController.prepareClase}" update=":TipoclaseViewForm" oncomplete="PF('TipoclaseViewDialog').show()" disabled="#{empty tiquetevueloController.selected.clase}"/>  
+                <p:menuitem value="#{myBundle.TiquetevueloMenuItem_temporada}" icon="ui-icon-search"  actionListener="#{tiquetevueloController.prepareTemporada}" update=":TemporadaViewForm" oncomplete="PF('TemporadaViewDialog').show()" disabled="#{empty tiquetevueloController.selected.temporada}"/>  
+                <p:menuitem value="#{myBundle.TiquetevueloMenuItem_tipoTarjeta}" icon="ui-icon-search"  actionListener="#{tiquetevueloController.prepareTipoTarjeta}" update=":TipotarjetaViewForm" oncomplete="PF('TipotarjetaViewDialog').show()" disabled="#{empty tiquetevueloController.selected.tipoTarjeta}"/>  
+                <p:menuitem value="#{myBundle.TiquetevueloMenuItem_usuarioTiket}" icon="ui-icon-search"  actionListener="#{tiquetevueloController.prepareUsuarioTiket}" update=":UsuarioViewForm" oncomplete="PF('UsuarioViewDialog').show()" disabled="#{empty tiquetevueloController.selected.usuarioTiket}"/>  
+                <p:menuitem value="#{myBundle.TiquetevueloMenuItem_vuelo}" icon="ui-icon-search"  actionListener="#{tiquetevueloController.prepareVuelo}" update=":VueloViewForm" oncomplete="PF('VueloViewDialog').show()" disabled="#{empty tiquetevueloController.selected.vuelo}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{tiquetevueloController.items}"
+                         lazy="false"
+                         rowKey="#{item.idDetalleVuelo}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{tiquetevueloController.selected}"
+                         filteredValue="#{tiquetevueloController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{tiquetevueloController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.idDetalleVuelo}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:TiquetevueloDataTableContextMenu" listener="#{tiquetevueloController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:TiquetevueloDataTableContextMenu" listener="#{tiquetevueloController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{tiquetevueloController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('TiquetevueloListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idDetalleVuelo}" filterBy="#{item.idDetalleVuelo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTiquetevueloTitle_idDetalleVuelo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idDetalleVuelo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.impuestos}" filterBy="#{item.impuestos}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTiquetevueloTitle_impuestos}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.impuestos}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.fechaCompra}" filterBy="#{item.fechaCompra}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTiquetevueloTitle_fechaCompra}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaCompra}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.numAsiento}" filterBy="#{item.numAsiento}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTiquetevueloTitle_numAsiento}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.numAsiento}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.subtotal}" filterBy="#{item.subtotal}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTiquetevueloTitle_subtotal}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.subtotal}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.millasAcumuladas}" filterBy="#{item.millasAcumuladas}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTiquetevueloTitle_millasAcumuladas}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.millasAcumuladas}"/>
+                </p:column>
+
+                <ui:remove>
+                    <p:column sortBy="#{item.barcode}" filterBy="#{item.barcode}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListTiquetevueloTitle_barcode}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.barcode}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.numeroMaletas}" filterBy="#{item.numeroMaletas}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListTiquetevueloTitle_numeroMaletas}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.numeroMaletas}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.pesoTotalMaletas}" filterBy="#{item.pesoTotalMaletas}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListTiquetevueloTitle_pesoTotalMaletas}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.pesoTotalMaletas}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.numeroMaletasMano}" filterBy="#{item.numeroMaletasMano}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListTiquetevueloTitle_numeroMaletasMano}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.numeroMaletasMano}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.pesoTotalMaletasMano}" filterBy="#{item.pesoTotalMaletasMano}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListTiquetevueloTitle_pesoTotalMaletasMano}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.pesoTotalMaletasMano}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.abordado}" filterBy="#{item.abordado}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListTiquetevueloTitle_abordado}"/>
+                        </f:facet>
+                        <h:selectBooleanCheckbox id="abordado" value="#{item.abordado}" title="#{myBundle.EditTiquetevueloTitle_abordado}"  disabled="true"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.clase.descripcion}" filterBy="#{item.clase.descripcion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListTiquetevueloTitle_clase}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.clase.descripcion}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.temporada.descripcion}" filterBy="#{item.temporada.descripcion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListTiquetevueloTitle_temporada}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.temporada.descripcion}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.tipoTarjeta.descripcion}" filterBy="#{item.tipoTarjeta.descripcion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListTiquetevueloTitle_tipoTarjeta}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.tipoTarjeta.descripcion}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.usuarioTiket.idUsuario}" filterBy="#{item.usuarioTiket.idUsuario}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListTiquetevueloTitle_usuarioTiket}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.usuarioTiket.idUsuario}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.vuelo.idVuelo}" filterBy="#{item.vuelo.idVuelo}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListTiquetevueloTitle_vuelo}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.vuelo.idVuelo}"/>
+                    </p:column>
+                </ui:remove>
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{tiquetevueloController.prepareCreate}" update=":TiquetevueloCreateForm" oncomplete="PF('TiquetevueloCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":TiquetevueloViewForm" oncomplete="PF('TiquetevueloViewDialog').show()" disabled="#{empty tiquetevueloController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":TiquetevueloEditForm" oncomplete="PF('TiquetevueloEditDialog').show()" disabled="#{empty tiquetevueloController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{tiquetevueloController.delete}" update=":growl,datalist" disabled="#{empty tiquetevueloController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

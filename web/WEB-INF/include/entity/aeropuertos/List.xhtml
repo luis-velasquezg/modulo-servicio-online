@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="AeropuertosListForm">
+
+        <p:panel header="#{myBundle.ListAeropuertosTitle}">
+            <p:contextMenu id="AeropuertosDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('AeropuertosListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('AeropuertosListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('AeropuertosListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('AeropuertosListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.AeropuertosMenuItem_ciudad}" icon="ui-icon-search"  actionListener="#{aeropuertosController.prepareCiudad}" update=":CiudadViewForm" oncomplete="PF('CiudadViewDialog').show()" disabled="#{empty aeropuertosController.selected.ciudad}"/>  
+                <p:menuitem value="#{myBundle.AeropuertosMenuItem_vueloList}" icon="ui-icon-search"  action="#{aeropuertosController.navigateVueloList}" disabled="#{aeropuertosController.isVueloListEmpty}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{aeropuertosController.items}"
+                         lazy="false"
+                         rowKey="#{item.idAeropuerto}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{aeropuertosController.selected}"
+                         filteredValue="#{aeropuertosController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{aeropuertosController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.idAeropuerto}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:AeropuertosDataTableContextMenu" listener="#{aeropuertosController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:AeropuertosDataTableContextMenu" listener="#{aeropuertosController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{aeropuertosController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('AeropuertosListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idAeropuerto}" filterBy="#{item.idAeropuerto}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAeropuertosTitle_idAeropuerto}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idAeropuerto}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nombre}" filterBy="#{item.nombre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAeropuertosTitle_nombre}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nombre}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.ciudad.idCiudad}" filterBy="#{item.ciudad.idCiudad}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAeropuertosTitle_ciudad}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.ciudad.idCiudad}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{aeropuertosController.prepareCreate}" update=":AeropuertosCreateForm" oncomplete="PF('AeropuertosCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":AeropuertosViewForm" oncomplete="PF('AeropuertosViewDialog').show()" disabled="#{empty aeropuertosController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":AeropuertosEditForm" oncomplete="PF('AeropuertosEditDialog').show()" disabled="#{empty aeropuertosController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{aeropuertosController.delete}" update=":growl,datalist" disabled="#{empty aeropuertosController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

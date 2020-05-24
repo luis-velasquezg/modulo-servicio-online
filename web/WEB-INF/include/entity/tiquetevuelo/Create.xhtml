@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TiquetevueloCreateDlg" widgetVar="TiquetevueloCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateTiquetevueloTitle}" closeOnEscape="true">
+
+            <h:form id="TiquetevueloCreateForm">
+
+                <h:panelGroup id="display" rendered="#{tiquetevueloController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateTiquetevueloLabel_impuestos}" for="impuestos" />
+                        <p:inputText id="impuestos" value="#{tiquetevueloController.selected.impuestos}" title="#{myBundle.CreateTiquetevueloTitle_impuestos}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateTiquetevueloLabel_fechaCompra}" for="fechaCompra" />
+                        <p:calendar id="fechaCompra" pattern="MM/dd/yyyy HH:mm:ss" value="#{tiquetevueloController.selected.fechaCompra}" title="#{myBundle.CreateTiquetevueloTitle_fechaCompra}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateTiquetevueloLabel_numAsiento}" for="numAsiento" />
+                        <p:inputText id="numAsiento" value="#{tiquetevueloController.selected.numAsiento}" title="#{myBundle.CreateTiquetevueloTitle_numAsiento}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateTiquetevueloLabel_subtotal}" for="subtotal" />
+                        <p:inputText id="subtotal" value="#{tiquetevueloController.selected.subtotal}" title="#{myBundle.CreateTiquetevueloTitle_subtotal}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateTiquetevueloLabel_millasAcumuladas}" for="millasAcumuladas" />
+                        <p:inputText id="millasAcumuladas" value="#{tiquetevueloController.selected.millasAcumuladas}" title="#{myBundle.CreateTiquetevueloTitle_millasAcumuladas}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateTiquetevueloLabel_barcode}" for="barcode" />
+                        <p:inputText id="barcode" value="#{tiquetevueloController.selected.barcode}" title="#{myBundle.CreateTiquetevueloTitle_barcode}" size="128" maxlength="128"/>
+
+                        <p:outputLabel value="#{myBundle.CreateTiquetevueloLabel_numeroMaletas}" for="numeroMaletas" />
+                        <p:inputText id="numeroMaletas" value="#{tiquetevueloController.selected.numeroMaletas}" title="#{myBundle.CreateTiquetevueloTitle_numeroMaletas}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateTiquetevueloLabel_pesoTotalMaletas}" for="pesoTotalMaletas" />
+                        <p:inputText id="pesoTotalMaletas" value="#{tiquetevueloController.selected.pesoTotalMaletas}" title="#{myBundle.CreateTiquetevueloTitle_pesoTotalMaletas}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateTiquetevueloLabel_numeroMaletasMano}" for="numeroMaletasMano" />
+                        <p:inputText id="numeroMaletasMano" value="#{tiquetevueloController.selected.numeroMaletasMano}" title="#{myBundle.CreateTiquetevueloTitle_numeroMaletasMano}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateTiquetevueloLabel_pesoTotalMaletasMano}" for="pesoTotalMaletasMano" />
+                        <p:inputText id="pesoTotalMaletasMano" value="#{tiquetevueloController.selected.pesoTotalMaletasMano}" title="#{myBundle.CreateTiquetevueloTitle_pesoTotalMaletasMano}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateTiquetevueloLabel_abordado}" for="abordado" />
+                        <p:selectBooleanCheckbox id="abordado" value="#{tiquetevueloController.selected.abordado}" />
+
+                        <p:outputLabel value="#{myBundle.CreateTiquetevueloLabel_clase}" for="clase" />
+                        <p:selectOneMenu id="clase" value="#{tiquetevueloController.selected.clase}"  converter="tipoclaseConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoclaseController.items}"
+                                           var="claseItem"
+                                           itemValue="#{claseItem}"
+                                           itemLabel="#{claseItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateTiquetevueloLabel_temporada}" for="temporada" />
+                        <p:selectOneMenu id="temporada" value="#{tiquetevueloController.selected.temporada}"  converter="temporadaConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{temporadaController.items}"
+                                           var="temporadaItem"
+                                           itemValue="#{temporadaItem}"
+                                           itemLabel="#{temporadaItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateTiquetevueloLabel_tipoTarjeta}" for="tipoTarjeta" />
+                        <p:selectOneMenu id="tipoTarjeta" value="#{tiquetevueloController.selected.tipoTarjeta}"  converter="tipotarjetaConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipotarjetaController.items}"
+                                           var="tipoTarjetaItem"
+                                           itemValue="#{tipoTarjetaItem}"
+                                           itemLabel="#{tipoTarjetaItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateTiquetevueloLabel_usuarioTiket}" for="usuarioTiket" />
+                        <p:selectOneMenu id="usuarioTiket" value="#{tiquetevueloController.selected.usuarioTiket}"  converter="usuarioConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.items}"
+                                           var="usuarioTiketItem"
+                                           itemValue="#{usuarioTiketItem}"
+                                           itemLabel="#{usuarioTiketItem.idUsuario.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateTiquetevueloLabel_vuelo}" for="vuelo" />
+                        <p:selectOneMenu id="vuelo" value="#{tiquetevueloController.selected.vuelo}"  converter="vueloConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{vueloController.items}"
+                                           var="vueloItem"
+                                           itemValue="#{vueloItem}"
+                                           itemLabel="#{vueloItem.idVuelo.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tiquetevueloController.saveNew}" value="#{myBundle.Save}" update="display,:TiquetevueloListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TiquetevueloCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TiquetevueloCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

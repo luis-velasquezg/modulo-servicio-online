@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CategoriaViewDlg" widgetVar="CategoriaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewCategoriaTitle}" closeOnEscape="true">
+
+            <h:form id="CategoriaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{categoriaController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewCategoriaLabel_idCategorias}"/>
+                        <h:outputText value="#{categoriaController.selected.idCategorias}" title="#{myBundle.ViewCategoriaTitle_idCategorias}"/>
+
+                        <h:outputText value="#{myBundle.ViewCategoriaLabel_descripcion}"/>
+                        <h:outputText value="#{categoriaController.selected.descripcion}" title="#{myBundle.ViewCategoriaTitle_descripcion}"/>
+
+                        <h:outputText value="#{myBundle.ViewCategoriaLabel_numeroMaletas}"/>
+                        <h:outputText value="#{categoriaController.selected.numeroMaletas}" title="#{myBundle.ViewCategoriaTitle_numeroMaletas}"/>
+
+                        <h:outputText value="#{myBundle.ViewCategoriaLabel_pesoMaletas}"/>
+                        <h:outputText value="#{categoriaController.selected.pesoMaletas}" title="#{myBundle.ViewCategoriaTitle_pesoMaletas}"/>
+
+                        <h:outputText value="#{myBundle.ViewCategoriaLabel_numeroMaletasMano}"/>
+                        <h:outputText value="#{categoriaController.selected.numeroMaletasMano}" title="#{myBundle.ViewCategoriaTitle_numeroMaletasMano}"/>
+
+                        <h:outputText value="#{myBundle.ViewCategoriaLabel_pesoMaletasMano}"/>
+                        <h:outputText value="#{categoriaController.selected.pesoMaletasMano}" title="#{myBundle.ViewCategoriaTitle_pesoMaletasMano}"/>
+
+                        <h:outputText value="#{myBundle.ViewCategoriaLabel_millasPorTrayecto}"/>
+                        <h:outputText value="#{categoriaController.selected.millasPorTrayecto}" title="#{myBundle.ViewCategoriaTitle_millasPorTrayecto}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('CategoriaViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

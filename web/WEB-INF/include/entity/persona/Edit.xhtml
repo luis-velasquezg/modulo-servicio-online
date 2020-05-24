@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="PersonaEditDlg" widgetVar="PersonaEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditPersonaTitle}" closeOnEscape="true">
+
+            <h:form id="PersonaEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{personaController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditPersonaLabel_idPersona}" for="idPersona" />
+                        <h:outputText id="idPersona" value="#{personaController.selected.idPersona}" />
+
+                        <p:outputLabel value="#{myBundle.EditPersonaLabel_nombres}" for="nombres" />
+                        <p:inputText id="nombres" value="#{personaController.selected.nombres}" title="#{myBundle.EditPersonaTitle_nombres}" size="128" maxlength="128"/>
+
+                        <p:outputLabel value="#{myBundle.EditPersonaLabel_apellidos}" for="apellidos" />
+                        <p:inputText id="apellidos" value="#{personaController.selected.apellidos}" title="#{myBundle.EditPersonaTitle_apellidos}" size="128" maxlength="128"/>
+
+                        <p:outputLabel value="#{myBundle.EditPersonaLabel_telefono}" for="telefono" />
+                        <p:inputText id="telefono" value="#{personaController.selected.telefono}" title="#{myBundle.EditPersonaTitle_telefono}" size="32" maxlength="32"/>
+
+                        <p:outputLabel value="#{myBundle.EditPersonaLabel_numeroDocumento}" for="numeroDocumento" />
+                        <p:inputText id="numeroDocumento" value="#{personaController.selected.numeroDocumento}" title="#{myBundle.EditPersonaTitle_numeroDocumento}" size="16" maxlength="16"/>
+
+                        <p:outputLabel value="#{myBundle.EditPersonaLabel_email}" for="email" />
+                        <p:inputTextarea rows="4" cols="30" id="email" value="#{personaController.selected.email}" title="#{myBundle.EditPersonaTitle_email}" />
+
+                        <p:outputLabel value="#{myBundle.EditPersonaLabel_fechaNacimiento}" for="fechaNacimiento" />
+                        <p:calendar id="fechaNacimiento" pattern="MM/dd/yyyy HH:mm:ss" value="#{personaController.selected.fechaNacimiento}" title="#{myBundle.EditPersonaTitle_fechaNacimiento}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditPersonaLabel_ciudad}" for="ciudad" />
+                        <p:selectOneMenu id="ciudad" value="#{personaController.selected.ciudad}"  converter="ciudadConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{ciudadController.items}"
+                                           var="ciudadItem"
+                                           itemValue="#{ciudadItem}"
+                                           itemLabel="#{ciudadItem.idCiudad.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditPersonaLabel_tipoDocumento}" for="tipoDocumento" />
+                        <p:selectOneMenu id="tipoDocumento" value="#{personaController.selected.tipoDocumento}"  converter="tipodocumentoConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipodocumentoController.items}"
+                                           var="tipoDocumentoItem"
+                                           itemValue="#{tipoDocumentoItem}"
+                                           itemLabel="#{tipoDocumentoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{personaController.save}" value="#{myBundle.Save}" update="display,:PersonaListForm:datalist,:PersonaListForm:PersonaDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PersonaEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('PersonaEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

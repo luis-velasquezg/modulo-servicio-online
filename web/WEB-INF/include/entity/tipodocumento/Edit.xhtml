@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TipodocumentoEditDlg" widgetVar="TipodocumentoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditTipodocumentoTitle}" closeOnEscape="true">
+
+            <h:form id="TipodocumentoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{tipodocumentoController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditTipodocumentoLabel_idTipoDocumento}" for="idTipoDocumento" />
+                        <h:outputText id="idTipoDocumento" value="#{tipodocumentoController.selected.idTipoDocumento}" />
+
+                        <p:outputLabel value="#{myBundle.EditTipodocumentoLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{tipodocumentoController.selected.descripcion}" title="#{myBundle.EditTipodocumentoTitle_descripcion}" size="45" maxlength="45"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipodocumentoController.save}" value="#{myBundle.Save}" update="display,:TipodocumentoListForm:datalist,:TipodocumentoListForm:TipodocumentoDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TipodocumentoEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TipodocumentoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

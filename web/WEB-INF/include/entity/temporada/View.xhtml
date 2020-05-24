@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TemporadaViewDlg" widgetVar="TemporadaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewTemporadaTitle}" closeOnEscape="true">
+
+            <h:form id="TemporadaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{temporadaController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewTemporadaLabel_idTemporada}"/>
+                        <h:outputText value="#{temporadaController.selected.idTemporada}" title="#{myBundle.ViewTemporadaTitle_idTemporada}"/>
+
+                        <h:outputText value="#{myBundle.ViewTemporadaLabel_descripcion}"/>
+                        <h:outputText value="#{temporadaController.selected.descripcion}" title="#{myBundle.ViewTemporadaTitle_descripcion}"/>
+
+                        <h:outputText value="#{myBundle.ViewTemporadaLabel_mesInicio}"/>
+                        <h:outputText value="#{temporadaController.selected.mesInicio}" title="#{myBundle.ViewTemporadaTitle_mesInicio}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewTemporadaLabel_mesFin}"/>
+                        <h:outputText value="#{temporadaController.selected.mesFin}" title="#{myBundle.ViewTemporadaTitle_mesFin}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('TemporadaViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

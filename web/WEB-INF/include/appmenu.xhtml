@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <h:form id="menuForm">
+            <p:menubar>
+                <p:menuitem value="#{myBundle.Home}" outcome="/index" icon="ui-icon-home"/>
+                <p:submenu label="#{myBundle.Maintenance}">
+                    <p:menuitem value="#{myBundle.AeropuertosHeading}..." outcome="/app/aeropuertos/index" />
+                    <p:menuitem value="#{myBundle.AvionHeading}..." outcome="/app/avion/index" />
+                    <p:menuitem value="#{myBundle.CategoriaHeading}..." outcome="/app/categoria/index" />
+                    <p:menuitem value="#{myBundle.CiudadHeading}..." outcome="/app/ciudad/index" />
+                    <p:menuitem value="#{myBundle.DepartamentoHeading}..." outcome="/app/departamento/index" />
+                    <p:menuitem value="#{myBundle.PaisHeading}..." outcome="/app/pais/index" />
+                    <p:menuitem value="#{myBundle.PersonaHeading}..." outcome="/app/persona/index" />
+                    <p:menuitem value="#{myBundle.RedencionmillasHeading}..." outcome="/app/redencionmillas/index" />
+                    <p:menuitem value="#{myBundle.RolHeading}..." outcome="/app/rol/index" />
+                    <p:menuitem value="#{myBundle.TemporadaHeading}..." outcome="/app/temporada/index" />
+                    <p:menuitem value="#{myBundle.TipoclaseHeading}..." outcome="/app/tipoclase/index" />
+                    <p:menuitem value="#{myBundle.TipodocumentoHeading}..." outcome="/app/tipodocumento/index" />
+                    <p:menuitem value="#{myBundle.TipotarjetaHeading}..." outcome="/app/tipotarjeta/index" />
+                    <p:menuitem value="#{myBundle.TiquetevueloHeading}..." outcome="/app/tiquetevuelo/index" />
+                    <p:menuitem value="#{myBundle.UsuarioHeading}..." outcome="/app/usuario/index" />
+                    <p:menuitem value="#{myBundle.UsuarioxpersonaHeading}..." outcome="/app/usuarioxpersona/index" />
+                    <p:menuitem value="#{myBundle.VueloHeading}..." outcome="/app/vuelo/index" />
+                </p:submenu>
+            </p:menubar>
+        </h:form>
+    </ui:composition>
+
+</html>

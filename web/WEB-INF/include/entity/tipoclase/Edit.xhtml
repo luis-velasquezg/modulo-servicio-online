@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TipoclaseEditDlg" widgetVar="TipoclaseEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditTipoclaseTitle}" closeOnEscape="true">
+
+            <h:form id="TipoclaseEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{tipoclaseController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditTipoclaseLabel_idTipoClase}" for="idTipoClase" />
+                        <h:outputText id="idTipoClase" value="#{tipoclaseController.selected.idTipoClase}" />
+
+                        <p:outputLabel value="#{myBundle.EditTipoclaseLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{tipoclaseController.selected.descripcion}" title="#{myBundle.EditTipoclaseTitle_descripcion}" size="128" maxlength="128"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoclaseController.save}" value="#{myBundle.Save}" update="display,:TipoclaseListForm:datalist,:TipoclaseListForm:TipoclaseDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TipoclaseEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TipoclaseEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

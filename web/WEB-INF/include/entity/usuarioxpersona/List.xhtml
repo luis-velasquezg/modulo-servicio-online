@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="UsuarioxpersonaListForm">
+
+        <p:panel header="#{myBundle.ListUsuarioxpersonaTitle}">
+            <p:contextMenu id="UsuarioxpersonaDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('UsuarioxpersonaListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('UsuarioxpersonaListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('UsuarioxpersonaListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('UsuarioxpersonaListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.UsuarioxpersonaMenuItem_persona}" icon="ui-icon-search"  actionListener="#{usuarioxpersonaController.preparePersona}" update=":PersonaViewForm" oncomplete="PF('PersonaViewDialog').show()" disabled="#{empty usuarioxpersonaController.selected.persona}"/>  
+                <p:menuitem value="#{myBundle.UsuarioxpersonaMenuItem_usuario}" icon="ui-icon-search"  actionListener="#{usuarioxpersonaController.prepareUsuario}" update=":UsuarioViewForm" oncomplete="PF('UsuarioViewDialog').show()" disabled="#{empty usuarioxpersonaController.selected.usuario}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{usuarioxpersonaController.items}"
+                         lazy="false"
+                         rowKey="#{item.idUsuarioxPersona}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{usuarioxpersonaController.selected}"
+                         filteredValue="#{usuarioxpersonaController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{usuarioxpersonaController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.idUsuarioxPersona}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:UsuarioxpersonaDataTableContextMenu" listener="#{usuarioxpersonaController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:UsuarioxpersonaDataTableContextMenu" listener="#{usuarioxpersonaController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{usuarioxpersonaController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('UsuarioxpersonaListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idUsuarioxPersona}" filterBy="#{item.idUsuarioxPersona}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListUsuarioxpersonaTitle_idUsuarioxPersona}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idUsuarioxPersona}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.persona.idPersona}" filterBy="#{item.persona.idPersona}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListUsuarioxpersonaTitle_persona}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.persona.idPersona}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.usuario.idUsuario}" filterBy="#{item.usuario.idUsuario}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListUsuarioxpersonaTitle_usuario}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.usuario.idUsuario}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{usuarioxpersonaController.prepareCreate}" update=":UsuarioxpersonaCreateForm" oncomplete="PF('UsuarioxpersonaCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":UsuarioxpersonaViewForm" oncomplete="PF('UsuarioxpersonaViewDialog').show()" disabled="#{empty usuarioxpersonaController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":UsuarioxpersonaEditForm" oncomplete="PF('UsuarioxpersonaEditDialog').show()" disabled="#{empty usuarioxpersonaController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{usuarioxpersonaController.delete}" update=":growl,datalist" disabled="#{empty usuarioxpersonaController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

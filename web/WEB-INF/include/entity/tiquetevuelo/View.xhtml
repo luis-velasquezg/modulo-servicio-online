@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TiquetevueloViewDlg" widgetVar="TiquetevueloViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewTiquetevueloTitle}" closeOnEscape="true">
+
+            <h:form id="TiquetevueloViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{tiquetevueloController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewTiquetevueloLabel_idDetalleVuelo}"/>
+                        <h:outputText value="#{tiquetevueloController.selected.idDetalleVuelo}" title="#{myBundle.ViewTiquetevueloTitle_idDetalleVuelo}"/>
+
+                        <h:outputText value="#{myBundle.ViewTiquetevueloLabel_impuestos}"/>
+                        <h:outputText value="#{tiquetevueloController.selected.impuestos}" title="#{myBundle.ViewTiquetevueloTitle_impuestos}"/>
+
+                        <h:outputText value="#{myBundle.ViewTiquetevueloLabel_fechaCompra}"/>
+                        <h:outputText value="#{tiquetevueloController.selected.fechaCompra}" title="#{myBundle.ViewTiquetevueloTitle_fechaCompra}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewTiquetevueloLabel_numAsiento}"/>
+                        <h:outputText value="#{tiquetevueloController.selected.numAsiento}" title="#{myBundle.ViewTiquetevueloTitle_numAsiento}"/>
+
+                        <h:outputText value="#{myBundle.ViewTiquetevueloLabel_subtotal}"/>
+                        <h:outputText value="#{tiquetevueloController.selected.subtotal}" title="#{myBundle.ViewTiquetevueloTitle_subtotal}"/>
+
+                        <h:outputText value="#{myBundle.ViewTiquetevueloLabel_millasAcumuladas}"/>
+                        <h:outputText value="#{tiquetevueloController.selected.millasAcumuladas}" title="#{myBundle.ViewTiquetevueloTitle_millasAcumuladas}"/>
+
+                        <h:outputText value="#{myBundle.ViewTiquetevueloLabel_barcode}"/>
+                        <h:outputText value="#{tiquetevueloController.selected.barcode}" title="#{myBundle.ViewTiquetevueloTitle_barcode}"/>
+
+                        <h:outputText value="#{myBundle.ViewTiquetevueloLabel_numeroMaletas}"/>
+                        <h:outputText value="#{tiquetevueloController.selected.numeroMaletas}" title="#{myBundle.ViewTiquetevueloTitle_numeroMaletas}"/>
+
+                        <h:outputText value="#{myBundle.ViewTiquetevueloLabel_pesoTotalMaletas}"/>
+                        <h:outputText value="#{tiquetevueloController.selected.pesoTotalMaletas}" title="#{myBundle.ViewTiquetevueloTitle_pesoTotalMaletas}"/>
+
+                        <h:outputText value="#{myBundle.ViewTiquetevueloLabel_numeroMaletasMano}"/>
+                        <h:outputText value="#{tiquetevueloController.selected.numeroMaletasMano}" title="#{myBundle.ViewTiquetevueloTitle_numeroMaletasMano}"/>
+
+                        <h:outputText value="#{myBundle.ViewTiquetevueloLabel_pesoTotalMaletasMano}"/>
+                        <h:outputText value="#{tiquetevueloController.selected.pesoTotalMaletasMano}" title="#{myBundle.ViewTiquetevueloTitle_pesoTotalMaletasMano}"/>
+
+                        <h:outputText value="#{myBundle.ViewTiquetevueloLabel_abordado}"/>
+                        <p:selectBooleanCheckbox id="abordado" value="#{tiquetevueloController.selected.abordado}" title="#{myBundle.EditTiquetevueloTitle_abordado}" />
+
+                        <h:outputText value="#{myBundle.ViewTiquetevueloLabel_clase}"/>
+                        <h:outputText value="#{tiquetevueloController.selected.clase.descripcion}"/>
+
+                        <h:outputText value="#{myBundle.ViewTiquetevueloLabel_temporada}"/>
+                        <h:outputText value="#{tiquetevueloController.selected.temporada.descripcion}"/>
+
+                        <h:outputText value="#{myBundle.ViewTiquetevueloLabel_tipoTarjeta}"/>
+                        <h:outputText value="#{tiquetevueloController.selected.tipoTarjeta.descripcion}"/>
+
+                        <h:outputText value="#{myBundle.ViewTiquetevueloLabel_usuarioTiket}"/>
+                        <h:outputText value="#{tiquetevueloController.selected.usuarioTiket.idUsuario}"/>
+
+                        <h:outputText value="#{myBundle.ViewTiquetevueloLabel_vuelo}"/>
+                        <h:outputText value="#{tiquetevueloController.selected.vuelo.idVuelo}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('TiquetevueloViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

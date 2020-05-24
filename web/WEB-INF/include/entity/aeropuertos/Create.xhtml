@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AeropuertosCreateDlg" widgetVar="AeropuertosCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateAeropuertosTitle}" closeOnEscape="true">
+
+            <h:form id="AeropuertosCreateForm">
+
+                <h:panelGroup id="display" rendered="#{aeropuertosController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateAeropuertosLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{aeropuertosController.selected.nombre}" title="#{myBundle.CreateAeropuertosTitle_nombre}" size="128" maxlength="128"/>
+
+                        <p:outputLabel value="#{myBundle.CreateAeropuertosLabel_ciudad}" for="ciudad" />
+                        <p:selectOneMenu id="ciudad" value="#{aeropuertosController.selected.ciudad}"  converter="ciudadConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{ciudadController.items}"
+                                           var="ciudadItem"
+                                           itemValue="#{ciudadItem}"
+                                           itemLabel="#{ciudadItem.idCiudad.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{aeropuertosController.saveNew}" value="#{myBundle.Save}" update="display,:AeropuertosListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('AeropuertosCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('AeropuertosCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

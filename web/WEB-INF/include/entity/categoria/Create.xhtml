@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CategoriaCreateDlg" widgetVar="CategoriaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateCategoriaTitle}" closeOnEscape="true">
+
+            <h:form id="CategoriaCreateForm">
+
+                <h:panelGroup id="display" rendered="#{categoriaController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateCategoriaLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{categoriaController.selected.descripcion}" title="#{myBundle.CreateCategoriaTitle_descripcion}" size="128" maxlength="128"/>
+
+                        <p:outputLabel value="#{myBundle.CreateCategoriaLabel_numeroMaletas}" for="numeroMaletas" />
+                        <p:inputText id="numeroMaletas" value="#{categoriaController.selected.numeroMaletas}" title="#{myBundle.CreateCategoriaTitle_numeroMaletas}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateCategoriaLabel_pesoMaletas}" for="pesoMaletas" />
+                        <p:inputText id="pesoMaletas" value="#{categoriaController.selected.pesoMaletas}" title="#{myBundle.CreateCategoriaTitle_pesoMaletas}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateCategoriaLabel_numeroMaletasMano}" for="numeroMaletasMano" />
+                        <p:inputText id="numeroMaletasMano" value="#{categoriaController.selected.numeroMaletasMano}" title="#{myBundle.CreateCategoriaTitle_numeroMaletasMano}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateCategoriaLabel_pesoMaletasMano}" for="pesoMaletasMano" />
+                        <p:inputText id="pesoMaletasMano" value="#{categoriaController.selected.pesoMaletasMano}" title="#{myBundle.CreateCategoriaTitle_pesoMaletasMano}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateCategoriaLabel_millasPorTrayecto}" for="millasPorTrayecto" />
+                        <p:inputText id="millasPorTrayecto" value="#{categoriaController.selected.millasPorTrayecto}" title="#{myBundle.CreateCategoriaTitle_millasPorTrayecto}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{categoriaController.saveNew}" value="#{myBundle.Save}" update="display,:CategoriaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CategoriaCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('CategoriaCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

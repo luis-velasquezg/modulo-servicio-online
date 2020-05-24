@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PersonaViewDlg" widgetVar="PersonaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewPersonaTitle}" closeOnEscape="true">
+
+            <h:form id="PersonaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{personaController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewPersonaLabel_idPersona}"/>
+                        <h:outputText value="#{personaController.selected.idPersona}" title="#{myBundle.ViewPersonaTitle_idPersona}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonaLabel_nombres}"/>
+                        <h:outputText value="#{personaController.selected.nombres}" title="#{myBundle.ViewPersonaTitle_nombres}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonaLabel_apellidos}"/>
+                        <h:outputText value="#{personaController.selected.apellidos}" title="#{myBundle.ViewPersonaTitle_apellidos}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonaLabel_telefono}"/>
+                        <h:outputText value="#{personaController.selected.telefono}" title="#{myBundle.ViewPersonaTitle_telefono}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonaLabel_numeroDocumento}"/>
+                        <h:outputText value="#{personaController.selected.numeroDocumento}" title="#{myBundle.ViewPersonaTitle_numeroDocumento}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonaLabel_email}"/>
+                        <h:outputText value="#{personaController.selected.email}" title="#{myBundle.ViewPersonaTitle_email}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonaLabel_fechaNacimiento}"/>
+                        <h:outputText value="#{personaController.selected.fechaNacimiento}" title="#{myBundle.ViewPersonaTitle_fechaNacimiento}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewPersonaLabel_ciudad}"/>
+                        <h:outputText value="#{personaController.selected.ciudad.idCiudad}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonaLabel_tipoDocumento}"/>
+                        <h:outputText value="#{personaController.selected.tipoDocumento.descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('PersonaViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

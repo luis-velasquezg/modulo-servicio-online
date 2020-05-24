@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="AvionEditDlg" widgetVar="AvionEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditAvionTitle}" closeOnEscape="true">
+
+            <h:form id="AvionEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{avionController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditAvionLabel_idAvion}" for="idAvion" />
+                        <h:outputText id="idAvion" value="#{avionController.selected.idAvion}" />
+
+                        <p:outputLabel value="#{myBundle.EditAvionLabel_matricula}" for="matricula" />
+                        <p:inputText id="matricula" value="#{avionController.selected.matricula}" title="#{myBundle.EditAvionTitle_matricula}" size="64" maxlength="64"/>
+
+                        <p:outputLabel value="#{myBundle.EditAvionLabel_fabricante}" for="fabricante" />
+                        <p:inputText id="fabricante" value="#{avionController.selected.fabricante}" title="#{myBundle.EditAvionTitle_fabricante}" size="128" maxlength="128"/>
+
+                        <p:outputLabel value="#{myBundle.EditAvionLabel_modelo}" for="modelo" />
+                        <p:inputText id="modelo" value="#{avionController.selected.modelo}" title="#{myBundle.EditAvionTitle_modelo}" size="64" maxlength="64"/>
+
+                        <p:outputLabel value="#{myBundle.EditAvionLabel_numeroAsientos}" for="numeroAsientos" />
+                        <p:inputText id="numeroAsientos" value="#{avionController.selected.numeroAsientos}" title="#{myBundle.EditAvionTitle_numeroAsientos}"/>
+
+                        <p:outputLabel value="#{myBundle.EditAvionLabel_capacidadCarga}" for="capacidadCarga" />
+                        <p:inputText id="capacidadCarga" value="#{avionController.selected.capacidadCarga}" title="#{myBundle.EditAvionTitle_capacidadCarga}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{avionController.save}" value="#{myBundle.Save}" update="display,:AvionListForm:datalist,:AvionListForm:AvionDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('AvionEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('AvionEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

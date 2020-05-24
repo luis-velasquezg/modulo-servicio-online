@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TemporadaEditDlg" widgetVar="TemporadaEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditTemporadaTitle}" closeOnEscape="true">
+
+            <h:form id="TemporadaEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{temporadaController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditTemporadaLabel_idTemporada}" for="idTemporada" />
+                        <h:outputText id="idTemporada" value="#{temporadaController.selected.idTemporada}" />
+
+                        <p:outputLabel value="#{myBundle.EditTemporadaLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{temporadaController.selected.descripcion}" title="#{myBundle.EditTemporadaTitle_descripcion}" size="128" maxlength="128"/>
+
+                        <p:outputLabel value="#{myBundle.EditTemporadaLabel_mesInicio}" for="mesInicio" />
+                        <p:calendar id="mesInicio" pattern="MM/dd/yyyy" value="#{temporadaController.selected.mesInicio}" title="#{myBundle.EditTemporadaTitle_mesInicio}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditTemporadaLabel_mesFin}" for="mesFin" />
+                        <p:calendar id="mesFin" pattern="MM/dd/yyyy" value="#{temporadaController.selected.mesFin}" title="#{myBundle.EditTemporadaTitle_mesFin}"  showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{temporadaController.save}" value="#{myBundle.Save}" update="display,:TemporadaListForm:datalist,:TemporadaListForm:TemporadaDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TemporadaEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TemporadaEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

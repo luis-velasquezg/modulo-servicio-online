@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RedencionmillasCreateDlg" widgetVar="RedencionmillasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateRedencionmillasTitle}" closeOnEscape="true">
+
+            <h:form id="RedencionmillasCreateForm">
+
+                <h:panelGroup id="display" rendered="#{redencionmillasController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateRedencionmillasLabel_fechaRedencion}" for="fechaRedencion" />
+                        <p:calendar id="fechaRedencion" pattern="MM/dd/yyyy HH:mm:ss" value="#{redencionmillasController.selected.fechaRedencion}" title="#{myBundle.CreateRedencionmillasTitle_fechaRedencion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateRedencionmillasLabel_saldoMIllas}" for="saldoMIllas" />
+                        <p:inputText id="saldoMIllas" value="#{redencionmillasController.selected.saldoMIllas}" title="#{myBundle.CreateRedencionmillasTitle_saldoMIllas}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateRedencionmillasLabel_usuarioRedime}" for="usuarioRedime" />
+                        <p:selectOneMenu id="usuarioRedime" value="#{redencionmillasController.selected.usuarioRedime}"  converter="usuarioConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.items}"
+                                           var="usuarioRedimeItem"
+                                           itemValue="#{usuarioRedimeItem}"
+                                           itemLabel="#{usuarioRedimeItem.idUsuario.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{redencionmillasController.saveNew}" value="#{myBundle.Save}" update="display,:RedencionmillasListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('RedencionmillasCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('RedencionmillasCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

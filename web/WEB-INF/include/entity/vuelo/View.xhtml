@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VueloViewDlg" widgetVar="VueloViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewVueloTitle}" closeOnEscape="true">
+
+            <h:form id="VueloViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{vueloController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewVueloLabel_idVuelo}"/>
+                        <h:outputText value="#{vueloController.selected.idVuelo}" title="#{myBundle.ViewVueloTitle_idVuelo}"/>
+
+                        <h:outputText value="#{myBundle.ViewVueloLabel_fechaSalida}"/>
+                        <h:outputText value="#{vueloController.selected.fechaSalida}" title="#{myBundle.ViewVueloTitle_fechaSalida}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewVueloLabel_fechaLlegada}"/>
+                        <h:outputText value="#{vueloController.selected.fechaLlegada}" title="#{myBundle.ViewVueloTitle_fechaLlegada}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewVueloLabel_asientosDisponibles}"/>
+                        <h:outputText value="#{vueloController.selected.asientosDisponibles}" title="#{myBundle.ViewVueloTitle_asientosDisponibles}"/>
+
+                        <h:outputText value="#{myBundle.ViewVueloLabel_aeropuerto}"/>
+                        <h:outputText value="#{vueloController.selected.aeropuerto.idAeropuerto}"/>
+
+                        <h:outputText value="#{myBundle.ViewVueloLabel_avion}"/>
+                        <h:outputText value="#{vueloController.selected.avion.idAvion}"/>
+
+                        <h:outputText value="#{myBundle.ViewVueloLabel_ciudadDestino}"/>
+                        <h:outputText value="#{vueloController.selected.ciudadDestino.idCiudad}"/>
+
+                        <h:outputText value="#{myBundle.ViewVueloLabel_ciudadOrigen}"/>
+                        <h:outputText value="#{vueloController.selected.ciudadOrigen.idCiudad}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('VueloViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

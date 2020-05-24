@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VueloCreateDlg" widgetVar="VueloCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateVueloTitle}" closeOnEscape="true">
+
+            <h:form id="VueloCreateForm">
+
+                <h:panelGroup id="display" rendered="#{vueloController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateVueloLabel_fechaSalida}" for="fechaSalida" />
+                        <p:calendar id="fechaSalida" pattern="MM/dd/yyyy HH:mm:ss" value="#{vueloController.selected.fechaSalida}" title="#{myBundle.CreateVueloTitle_fechaSalida}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateVueloLabel_fechaLlegada}" for="fechaLlegada" />
+                        <p:calendar id="fechaLlegada" pattern="MM/dd/yyyy HH:mm:ss" value="#{vueloController.selected.fechaLlegada}" title="#{myBundle.CreateVueloTitle_fechaLlegada}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateVueloLabel_asientosDisponibles}" for="asientosDisponibles" />
+                        <p:inputText id="asientosDisponibles" value="#{vueloController.selected.asientosDisponibles}" title="#{myBundle.CreateVueloTitle_asientosDisponibles}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateVueloLabel_aeropuerto}" for="aeropuerto" />
+                        <p:selectOneMenu id="aeropuerto" value="#{vueloController.selected.aeropuerto}"  converter="aeropuertosConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{aeropuertosController.items}"
+                                           var="aeropuertoItem"
+                                           itemValue="#{aeropuertoItem}"
+                                           itemLabel="#{aeropuertoItem.idAeropuerto.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateVueloLabel_avion}" for="avion" />
+                        <p:selectOneMenu id="avion" value="#{vueloController.selected.avion}"  converter="avionConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{avionController.items}"
+                                           var="avionItem"
+                                           itemValue="#{avionItem}"
+                                           itemLabel="#{avionItem.idAvion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateVueloLabel_ciudadDestino}" for="ciudadDestino" />
+                        <p:selectOneMenu id="ciudadDestino" value="#{vueloController.selected.ciudadDestino}"  converter="ciudadConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{ciudadController.items}"
+                                           var="ciudadDestinoItem"
+                                           itemValue="#{ciudadDestinoItem}"
+                                           itemLabel="#{ciudadDestinoItem.idCiudad.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateVueloLabel_ciudadOrigen}" for="ciudadOrigen" />
+                        <p:selectOneMenu id="ciudadOrigen" value="#{vueloController.selected.ciudadOrigen}"  converter="ciudadConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{ciudadController.items}"
+                                           var="ciudadOrigenItem"
+                                           itemValue="#{ciudadOrigenItem}"
+                                           itemLabel="#{ciudadOrigenItem.idCiudad.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{vueloController.saveNew}" value="#{myBundle.Save}" update="display,:VueloListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('VueloCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('VueloCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
