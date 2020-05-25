@@ -13,10 +13,29 @@
         <ui:define name="body">
             <p:panel header="#{myBundle.Welcome}">
                 <p><h:outputText value="#{myBundle.WelcomeMessage}"></h:outputText></p>
+
+                <h:form id="login-form">
+                    <p:growl autoUpdate="true" />
+                    <div class="col a12 imput-field">
+                        <h:inputText id="username" value="#{login.user}" required="true" requiredMessage="El usuario es requerido" />
+                        <h:outputLabel for="username" value="Usuario" />
+
+                    </div> 
+                    <div class="col a12 imput-field">
+                        <h:inputSecret id="password" value="#{login.pwd}" required="true" requiredMessage="La contraseña es requerida"/>
+                        <h:outputLabel for="password" value="Contraseña" />
+                    </div> 
+                    <div class="col a12 imput-field">
+                        <h:commandButton action="#{login.validateUsernamePassword}"
+                                         value="Login"></h:commandButton>
+                    </div> 
+                </h:form>
+
             </p:panel>
 
         </ui:define>
 
     </ui:composition>
+
 
 </html>

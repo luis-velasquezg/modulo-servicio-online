@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/include/template.xhtml">
+
+    <ui:define name="title">
+        <h:outputText value="Login"/>
+    </ui:define>
+
+    <ui:define name="body">
+
+        <h:form id="login-form">
+            <p:growl autoUpdate="true" />
+            <h:panelGrid>
+                
+                <p:outputLabel for="username" value="Usuario" />
+                <p:inputText id="username" value="#{Login.login}" required="true" requiredMessage="El usuario es requerido" />
+                              
+                <p:outputLabel for="password" value="Contraseña" />
+                <p:password id="password" value="#{Login.password}" required="true" requiredMessage="La contraseña es requerida" />
+              
+                <p:button onclick="alert('Hello')" value="Login2"></p:button>
+                
+                <h:commandButton action="#{Login.validateUsernamePassword}"
+                                                    value="Login"></h:commandButton>
+
+            </h:panelGrid>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

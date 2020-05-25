@@ -1,5 +1,6 @@
 package controller;
 
+import dao.LoginDAO;
 import entities.Persona;
 import entities.Usuarioxpersona;
 import java.util.List;
@@ -10,6 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 
+
 @Named(value = "personaController")
 @ViewScoped
 public class PersonaController extends AbstractController<Persona> {
@@ -19,6 +21,13 @@ public class PersonaController extends AbstractController<Persona> {
     @Inject
     private TipodocumentoController tipoDocumentoController;
 
+    
+    private String pwd;
+    private String msg;
+    private String user;
+
+        
+    
     // Flags to indicate if child collections are empty
     private boolean isUsuarioxpersonaListEmpty;
 
@@ -27,6 +36,11 @@ public class PersonaController extends AbstractController<Persona> {
         super(Persona.class);
     }
 
+    
+    public void registrar() {
+        LoginDAO.registrar(user, pwd);
+    }
+    
     /**
      * Resets the "selected" attribute of any parent Entity controllers.
      */
@@ -83,6 +97,7 @@ public class PersonaController extends AbstractController<Persona> {
         }
     }
 
+        
     /**
      * Sets the "items" attribute with a collection of Usuarioxpersona entities
      * that are retrieved from Persona and returns the navigation outcome.
@@ -99,4 +114,31 @@ public class PersonaController extends AbstractController<Persona> {
         return "/app/usuarioxpersona/index";
     }
 
+    
+    
+    public String getPwd() {
+		return pwd;
+	}
+
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
+	}
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+    
+    
 }
