@@ -3,26 +3,25 @@
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
         <Node id="app/redencionmillas/index.xhtml" x="400" y="150" zoom="true"/>
-        <Node id="app/ciudad/index.xhtml" x="900" y="150" zoom="true"/>
         <Node id="index.xhtml" x="1455" y="223" zoom="true"/>
-        <Node id="index-login2.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="app/ciudad/index.xhtml" x="900" y="150" zoom="true"/>
         <Node id="app/usuario/index.xhtml" x="400" y="300" zoom="true"/>
         <Node id="welcomePrimefaces.xhtml" x="1650" y="150" zoom="true"/>
         <Node id="app/pais/index.xhtml" x="150" y="450" zoom="true"/>
         <Node id="app/usuarioxpersona/index.xhtml" x="1150" y="150" zoom="true"/>
-        <Node id="app/tipoclase/index.xhtml" x="150" y="300" zoom="true"/>
         <Node id="app/tipodocumento/index.xhtml" x="150" y="900" zoom="true"/>
+        <Node id="app/tipoclase/index.xhtml" x="150" y="300" zoom="true"/>
         <Node id="app/departamento/index.xhtml" x="400" y="600" zoom="true"/>
         <Node id="login.xhtml" x="1454" y="88" zoom="false"/>
         <Node id="app/tiquetevuelo/index.xhtml" x="900" y="300" zoom="true"/>
         <Node id="app/vuelo/index.xhtml" x="650" y="600" zoom="true"/>
         <Node id="app/registro-persona/index.xhtml" x="1150" y="300" zoom="true"/>
-        <Node id="app/rol/index.xhtml" x="900" y="450" zoom="true"/>
         <Node id="app/avion/index.xhtml" x="1400" y="300" zoom="true"/>
-        <Node id="app/persona/index.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="app/rol/index.xhtml" x="900" y="450" zoom="true"/>
         <Node id="app/temporada/index.xhtml" x="150" y="750" zoom="true"/>
-        <Node id="app/aeropuertos/index.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="app/persona/index.xhtml" x="400" y="450" zoom="true"/>
         <Node id="app/tipotarjeta/index.xhtml" x="400" y="750" zoom="true"/>
+        <Node id="app/aeropuertos/index.xhtml" x="650" y="450" zoom="true"/>
         <Node id="app/login/index.xhtml" x="150" y="150" zoom="true"/>
         <Node id="app/categoria/index.xhtml" x="650" y="150" zoom="true"/>
     </Scope>

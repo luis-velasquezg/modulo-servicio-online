@@ -17,13 +17,40 @@
             <h:panelGroup id="display" >
                 <p:panelGrid columns="2" columnClasses="column">
 
+                    <p:outputLabel value="#{myBundle.CreatePersonaLabel_nombres}" for="nombres" />
+                    <p:inputText id="nombres" value="#{personaController.nombres}" title="#{myBundle.CreatePersonaTitle_nombres}" required="true" requiredMessage="El nombre es requerido" size="50" maxlength="128"/>
+
+                    <p:outputLabel value="#{myBundle.CreatePersonaLabel_apellidos}" for="apellidos" />
+                    <p:inputText id="apellidos" value="#{personaController.apellidos}" title="#{myBundle.CreatePersonaTitle_apellidos}" required="true" requiredMessage="El apellido es requerido" size="50" maxlength="128"/>
+
+                    <p:outputLabel value="#{myBundle.CreatePersonaLabel_tipoDocumento}" for="tipoDocumento" />
+                    <p:selectOneMenu id="tipoDocumento" value="#{personaController.tipoDocumento}"  converter="tipodocumentoConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipodocumentoController.items}"
+                                           var="tipoDocumentoItem"
+                                           itemValue="#{tipoDocumentoItem}"
+                                           itemLabel="#{tipoDocumentoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    
+                    <p:outputLabel value="#{myBundle.CreatePersonaLabel_numeroDocumento}" for="numeroDocumento" />
+                    <p:inputText id="numeroDocumento" value="#{personaController.numeroDocumento}" title="#{myBundle.CreatePersonaTitle_numeroDocumento}" required="true" requiredMessage="El número de documento es requerido" size="16" maxlength="16"/>
+
+                    <p:outputLabel value="#{myBundle.CreatePersonaLabel_email}" for="email" />
+                    <p:inputText id="email" value="#{personaController.email}" title="#{myBundle.CreatePersonaTitle_email}" size="40" maxlength="256" />
+
+                    <p:outputLabel value="#{myBundle.CreatePersonaLabel_telefono}" for="telefono" />
+                    <p:inputText id="telefono" value="#{personaController.telefono}" title="#{myBundle.CreatePersonaTitle_telefono}" size="32" maxlength="32"/>
+                    
+                    <p:outputLabel value="#{myBundle.CreatePersonaLabel_fechaNacimiento}" for="fechaNacimiento" />
+                    <p:calendar id="fechaNacimiento" pattern="yyyy-MM-dd" value="#{personaController.fechaNacimiento}" title="#{myBundle.CreatePersonaTitle_fechaNacimiento}"  showOn="button"/>
+
                     <p:outputLabel for="usuario" value="Usuario" />
-                    <p:inputText id="usuario" value="#{personaController.user}" required="true" requiredMessage="El usuario es requerido" />
-                    
+                    <p:inputText id="usuario" value="#{personaController.user}" required="true" requiredMessage="El usuario es requerido" size="32" maxlength="128" />
+
                     <p:outputLabel for="contrasenna" value="Contraseña" />
-                    <p:password id="contrasenna" value="#{personaController.pwd}" required="true" requiredMessage="El apellido es requerido" />
-                    
-                                        
+                    <p:password id="contrasenna" value="#{personaController.pwd}" required="true" requiredMessage="El apellido es requerido" size="32" maxlength="512" />
 
                 </p:panelGrid>
 

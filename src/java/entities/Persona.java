@@ -77,7 +77,7 @@ public class Persona implements Serializable {
     private Tipodocumento tipoDocumento;
     @OneToMany(mappedBy = "persona")
     private List<Usuarioxpersona> usuarioxpersonaList;
-
+    
     public Persona() {
     }
 
